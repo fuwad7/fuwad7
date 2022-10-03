@@ -50,13 +50,15 @@
       src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3"
       width="40" height="40" /> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img
       src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg"
-      alt="html5" width="40" height="40" /> </a> <a href="https://www.adobe.com/in/products/illustrator.html"
+      alt="html5" width="40" height="40" /> </a> <a href="https://www.adobe.com/products/illustrator.html"
     target="_blank" rel="noreferrer"> <img
       src="https://www.vectorlogo.zone/logos/adobe_illustrator/adobe_illustrator-icon.svg" alt="illustrator" width="40"
-      height="40" /> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img
+      height="40" /> </a> <a href="https://www.adobe.com/products/aftereffects.html" target="_blank" rel="noreferrer"> <img
       src="https://brandeps.com/logo-download/A/Adobe-After-Effects-CC-logo-vector-01.svg" alt="After Effects" width="40"
-      height="40" /> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img
+      height="40" /> </a> <a href="https://www.adobe.com/products/photoshop.html" target="_blank" rel="noreferrer"> <img
       src="https://brandeps.com/logo-download/A/Adobe-Photoshop-CC-logo-vector-01.svg" alt="Photoshop" width="40"
+      height="40" /> </a> <a href="https://www.wordpress.org" target="_blank" rel="noreferrer"> <img
+      src="https://brandeps.com/icon-download/W/Wordpress-icon-vector-03.svg" alt="Wordpress" width="40"
       height="40" /> </a> </p>
 
 <br>
