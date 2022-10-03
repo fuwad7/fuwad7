@@ -16,7 +16,7 @@
 
 - 📫 How to reach me **coderfuad@gmail.com**
 
-- ⚡ Interest's :- Aesthetic, Anime, Code, Food, Games, Movies, Music 🎵 and Sports
+- ⚡ Interest's :- Aesthetics, Anime, Code, Food, Games, Movies, Music 🎵 and Sports
 <br>
 
 <h3 align="left">Connect with me:</h3>
