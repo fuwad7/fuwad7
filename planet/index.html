@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D GitHub Contribution Planet — Fuad (@fuwad7)</title>
+  <meta name="description" content="Explore GitHub contributions in an interactive 3D WebGL celestial planet with live orbit controls, telemetry, and futuristic shaders.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- 3D Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- Ambient Vignette & Scanlines -->
+  <div class="vignette"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Header HUD Overlay -->
+  <header class="hud-header">
+    <div class="hud-brand">
+      <div class="orbit-badge">
+        <span class="orbit-dot"></span>
+        <span class="orbit-ring"></span>
+      </div>
+      <div>
+        <h1 class="hud-title">PLANET FUWAD7</h1>
+        <div class="hud-subtitle">3D GITHUB CONTRIBUTION SYSTEM // V2.4</div>
+      </div>
+    </div>
+
+    <div class="hud-stats-banner">
+      <div class="stat-cell">
+        <span class="stat-label">TOTAL COMMITS</span>
+        <span class="stat-val" id="stat-total">864</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-cell">
+        <span class="stat-label">MAX SINGLE DAY</span>
+        <span class="stat-val" id="stat-max">18</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-cell">
+        <span class="stat-label">ACTIVE STREAK</span>
+        <span class="stat-val" id="stat-streak">32 DAYS</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-cell">
+        <span class="stat-label">ORBITAL CYCLE</span>
+        <span class="stat-val">365 DAYS</span>
+      </div>
+    </div>
+
+    <div class="hud-actions">
+      <button id="btn-audio" class="hud-btn" title="Toggle Cosmic SFX Audio">
+        <span class="icon" id="audio-icon">🔇</span>
+        <span class="btn-text">AUDIO</span>
+      </button>
+      <button id="btn-screenshot" class="hud-btn" title="Capture High-Res Image">
+        <span class="icon">📸</span>
+        <span class="btn-text">CAPTURE</span>
+      </button>
+      <a href="https://github.com/fuwad7" target="_blank" rel="noopener" class="hud-btn primary" title="Visit GitHub Profile">
+        <span class="icon">↗</span>
+        <span class="btn-text">GITHUB</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Interactive Raycaster Tooltip -->
+  <div id="tooltip" class="hud-tooltip hidden">
+    <div class="tooltip-header">
+      <span class="tooltip-dot" id="tooltip-dot"></span>
+      <span class="tooltip-date" id="tooltip-date">OCT 24, 2024</span>
+      <span class="tooltip-weekday" id="tooltip-weekday">THU</span>
+    </div>
+    <div class="tooltip-body">
+      <div class="tooltip-count" id="tooltip-count">12</div>
+      <div class="tooltip-meta">
+        <span class="tooltip-label">CONTRIBUTIONS</span>
+        <span class="tooltip-tier" id="tooltip-tier">TIER 4 · HIGH ACTIVITY</span>
+      </div>
+    </div>
+    <div class="tooltip-footer">
+      <span id="tooltip-coords">WEEK 43 · LAT +24° LON -82°</span>
+    </div>
+  </div>
+
+  <!-- Left Control Deck -->
+  <aside class="control-dock left-dock">
+    <div class="dock-panel">
+      <div class="panel-header">
+        <span class="panel-tag">MODE</span>
+        <h3>PROJECTION</h3>
+      </div>
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="sphere">
+          <span class="mode-icon">🪐</span>
+          <span class="mode-name">Celestial Sphere</span>
+        </button>
+        <button class="mode-btn" data-mode="ring">
+          <span class="mode-icon">💫</span>
+          <span class="mode-name">Halo Ringworld</span>
+        </button>
+        <button class="mode-btn" data-mode="grid">
+          <span class="mode-icon">🏙️</span>
+          <span class="mode-name">Cyber Grid City</span>
+        </button>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <div class="panel-header">
+        <span class="panel-tag">PALETTE</span>
+        <h3>THEME</h3>
+      </div>
+      <div class="theme-grid">
+        <button class="theme-btn active" data-theme="tokyo" title="Tokyo Night Rainbow">
+          <span class="theme-swatch tokyo"></span>
+          <span class="theme-name">Tokyo</span>
+        </button>
+        <button class="theme-btn" data-theme="cyber" title="Cyberpunk Neon">
+          <span class="theme-swatch cyber"></span>
+          <span class="theme-name">Cyber</span>
+        </button>
+        <button class="theme-btn" data-theme="matrix" title="Emerald Matrix">
+          <span class="theme-swatch matrix"></span>
+          <span class="theme-name">Matrix</span>
+        </button>
+        <button class="theme-btn" data-theme="solar" title="Solar Flare">
+          <span class="theme-swatch solar"></span>
+          <span class="theme-name">Solar</span>
+        </button>
+        <button class="theme-btn" data-theme="frost" title="Deep Frost">
+          <span class="theme-swatch frost"></span>
+          <span class="theme-name">Frost</span>
+        </button>
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <div class="panel-header">
+        <span class="panel-tag">TARGET</span>
+        <h3>EXPLORE USER</h3>
+      </div>
+      <form id="user-form" class="user-search">
+        <input type="text" id="username-input" placeholder="GitHub username..." value="fuwad7" autocomplete="off" spellcheck="false">
+        <button type="submit" id="btn-load-user" title="Load Contributions">SCAN</button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Right Floating Dynamics Panel -->
+  <aside class="control-dock right-dock">
+    <div class="dock-panel">
+      <div class="panel-header">
+        <span class="panel-tag">DYNAMICS</span>
+        <h3>SIMULATION</h3>
+      </div>
+
+      <div class="slider-control">
+        <div class="slider-header">
+          <span>AUTO ROTATION</span>
+          <label class="switch">
+            <input type="checkbox" id="toggle-autorotate" checked>
+            <span class="slider-switch"></span>
+          </label>
+        </div>
+        <input type="range" id="slider-rotspeed" min="0.1" max="3" step="0.1" value="1">
+      </div>
+
+      <div class="slider-control">
+        <div class="slider-header">
+          <span>ELEVATION SCALE</span>
+          <span class="slider-val" id="val-height">1.0x</span>
+        </div>
+        <input type="range" id="slider-height" min="0.4" max="2.5" step="0.1" value="1">
+      </div>
+
+      <div class="slider-control">
+        <div class="slider-header">
+          <span>PARTICLE DENSITY</span>
+          <span class="slider-val" id="val-particles">HIGH</span>
+        </div>
+        <input type="range" id="slider-particles" min="1" max="3" step="1" value="2">
+      </div>
+
+      <div class="panel-divider"></div>
+
+      <div class="panel-header">
+        <span class="panel-tag">VIEWPORT</span>
+        <h3>CAMERA</h3>
+      </div>
+      <div class="camera-actions">
+        <button id="btn-cam-reset" class="cam-btn">RESET ORBIT</button>
+        <button id="btn-cam-top" class="cam-btn">POLAR VIEW</button>
+        <button id="btn-cam-side" class="cam-btn">EQUATORIAL</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Bottom Interaction Helper -->
+  <footer class="hud-footer">
+    <div class="interaction-hints">
+      <span class="hint-item"><span class="mouse-icon">🖱️</span> LEFT DRAG · 360° ORBIT</span>
+      <span class="hint-dot">·</span>
+      <span class="hint-item"><span class="mouse-icon">📜</span> WHEEL · ZOOM DEPTH</span>
+      <span class="hint-dot">·</span>
+      <span class="hint-item"><span class="mouse-icon">🎯</span> HOVER · DAY TELEMETRY</span>
+      <span class="hint-dot">·</span>
+      <span class="hint-item"><span class="mouse-icon">👆</span> RIGHT DRAG · PAN POSITION</span>
+    </div>
+  </footer>
+
+  <!-- Main Three.js Application Logic -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
