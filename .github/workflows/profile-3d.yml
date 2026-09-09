@@ -1,0 +1,44 @@
+name: Generate 3D Profile Assets
+
+on:
+  schedule: [{ cron: "0 1 * * *" }]
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/profile-3d.yml", ".github/workflows/profile-3d-contrib.json"]
+
+concurrency:
+  group: profile-assets
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build 3D contribution graph
+        uses: yoshi389111/github-profile-3d-contrib@0.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+          SETTING_JSON: .github/workflows/profile-3d-contrib.json
+
+      - name: Build contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            profile-3d-contrib/snake.svg?color_snake=#00d9ff&color_dots=#0a0f2b,#16437a,#0e7490,#00d9ff,#a855f7
+            profile-3d-contrib/snake-dark.svg?color_snake=#00d9ff&color_dots=#0a0f2b,#16437a,#0e7490,#00d9ff,#a855f7
+
+      - name: Commit assets
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: regenerate 3d profile assets [skip ci]"
+          file_pattern: "profile-3d-contrib/*.svg"

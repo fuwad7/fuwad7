@@ -1,0 +1,24 @@
+[
+  {
+    "type": "normal",
+    "fileName": "profile-neon-3d.svg",
+    "backgroundColor": "#030611",
+    "foregroundColor": "#00d9ff",
+    "strongColor": "#ffffff",
+    "weakColor": "#8892b0",
+    "radarColor": "#ff2d95",
+    "growingAnimation": true,
+    "contribColors": ["#101a3d", "#16437a", "#0e7490", "#00d9ff", "#a855f7"]
+  },
+  {
+    "type": "rainbow",
+    "fileName": "profile-night-rainbow.svg",
+    "backgroundColor": "#030611",
+    "foregroundColor": "#00d9ff",
+    "strongColor": "#ffffff",
+    "weakColor": "#8892b0",
+    "radarColor": "#a855f7",
+    "growingAnimation": true,
+    "hueRatio": -7
+  }
+]
