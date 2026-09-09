@@ -32,6 +32,7 @@
     <stop offset="0%" stop-color="#030611" stop-opacity=".9"/><stop offset="20%" stop-color="#030611" stop-opacity="0"/>
     <stop offset="80%" stop-color="#030611" stop-opacity="0"/><stop offset="100%" stop-color="#030611" stop-opacity=".9"/>
   </linearGradient>
+  <!-- Filters: GitHub strips these, but they enhance the SVG when viewed directly -->
   <filter id="glow" x="-70%" y="-70%" width="240%" height="240%">
     <feGaussianBlur stdDeviation="7" result="b"/>
     <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -61,7 +62,8 @@
 
 <!-- ── SPACE ───────────────────────────────────────────── -->
 <rect width="1200" height="600" fill="url(#space)"/>
-<g filter="url(#blurL)">
+<!-- Nebula clouds: no filter ref so they show as solid color blobs on GitHub (still pretty) -->
+<g opacity=".18">
   <ellipse cx="250" cy="180" rx="230" ry="120" fill="#a855f7" opacity=".22">
     <animate attributeName="opacity" values=".14;.3;.14" dur="13s" repeatCount="indefinite"/>
   </ellipse>
@@ -74,7 +76,7 @@
 </g>
 
 <!-- ── STARFIELD ───────────────────────────────────────── -->
-<g fill="#ffffff" filter="url(#glowS)">
+<g fill="#ffffff">
   <circle cx="90" cy="90" r="1.6" opacity=".8"><animate attributeName="opacity" values=".2;1;.2" dur="3.1s" repeatCount="indefinite"/></circle>
   <circle cx="200" cy="240" r="1.2" opacity=".6"><animate attributeName="opacity" values=".1;.9;.1" dur="4.4s" begin="-1s" repeatCount="indefinite"/></circle>
   <circle cx="330" cy="110" r="1.8" opacity=".9"><animate attributeName="opacity" values=".3;1;.3" dur="2.7s" begin="-.6s" repeatCount="indefinite"/></circle>
@@ -97,15 +99,15 @@
   <circle cx="860" cy="330" r="1.1" opacity=".45"><animate attributeName="opacity" values=".1;.7;.1" dur="5.9s" begin="-2.1s" repeatCount="indefinite"/></circle>
 </g>
 
-<!-- ── SHOOTING STARS ──────────────────────────────────── -->
-<g filter="url(#glow)">
-  <g opacity="0">
+<!-- ── SHOOTING STAR (static position for GitHub, animated elsewhere) ── -->
+<g>
+  <g opacity=".7" transform="translate(350,140)">
     <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;.12;.28;.42;1" dur="8s" repeatCount="indefinite"/>
     <line x1="0" y1="0" x2="-110" y2="52" stroke="url(#shoot)" stroke-width="2.4" stroke-linecap="round">
       <animateTransform attributeName="transform" type="translate" values="180,60;520,220;520,220" keyTimes="0;.42;1" dur="8s" repeatCount="indefinite"/>
     </line>
   </g>
-  <g opacity="0">
+  <g opacity=".5" transform="translate(950,145)">
     <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;.5;.62;.76;1" dur="11s" repeatCount="indefinite"/>
     <line x1="0" y1="0" x2="-96" y2="40" stroke="url(#shoot)" stroke-width="2" stroke-linecap="round">
       <animateTransform attributeName="transform" type="translate" values="1080,90;820,200;820,200" keyTimes="0;.76;1" dur="11s" repeatCount="indefinite"/>
@@ -124,7 +126,7 @@
 </g>
 
 <!-- ── RING (BACK HALF) ────────────────────────────────── -->
-<g transform="rotate(-16 600 316)" filter="url(#glow)">
+<g transform="rotate(-16 600 316)">
   <ellipse cx="600" cy="316" rx="304" ry="80" fill="none" stroke="url(#ring)" stroke-width="11" opacity=".8"/>
   <ellipse cx="600" cy="316" rx="304" ry="80" fill="none" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="2 16" opacity=".45">
     <animate attributeName="stroke-dashoffset" from="0" to="-180" dur="6s" repeatCount="indefinite"/>
@@ -161,20 +163,20 @@
     </g>
     <!-- meridians (sweeping = rotation) -->
     <g fill="none" stroke="#00d9ff" stroke-width="1.1" opacity=".3">
+      <ellipse cx="600" cy="316" rx="80" ry="170"/>
+      <ellipse cx="600" cy="316" rx="140" ry="170"/>
       <ellipse cx="600" cy="316" rx="168" ry="170"><animate attributeName="rx" values="168;0;168" dur="14s" repeatCount="indefinite"/></ellipse>
-      <ellipse cx="600" cy="316" rx="168" ry="170"><animate attributeName="rx" values="168;0;168" dur="14s" begin="-3.5s" repeatCount="indefinite"/></ellipse>
-      <ellipse cx="600" cy="316" rx="168" ry="170"><animate attributeName="rx" values="168;0;168" dur="14s" begin="-7s" repeatCount="indefinite"/></ellipse>
-      <ellipse cx="600" cy="316" rx="168" ry="170"><animate attributeName="rx" values="168;0;168" dur="14s" begin="-10.5s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="600" cy="316" rx="40" ry="170"><animate attributeName="rx" values="168;0;168" dur="14s" begin="-3.5s" repeatCount="indefinite"/></ellipse>
     </g>
     <!-- night side -->
     <circle cx="600" cy="316" r="170" fill="url(#night)"/>
   </g>
   <!-- atmosphere -->
   <circle cx="600" cy="316" r="188" fill="url(#atmo)"/>
-  <circle cx="600" cy="316" r="171" fill="none" stroke="#8ef7ff" stroke-width="1.6" opacity=".5" filter="url(#glowS)">
+  <circle cx="600" cy="316" r="171" fill="none" stroke="#8ef7ff" stroke-width="1.6" opacity=".5">
     <animate attributeName="opacity" values=".3;.75;.3" dur="5s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="600" cy="316" r="170" fill="none" stroke="#a855f7" stroke-width="6" opacity=".25">
+  <circle cx="600" cy="316" r="180" fill="none" stroke="#a855f7" stroke-width="6" opacity=".15">
     <animate attributeName="r" values="170;196;170" dur="4.5s" repeatCount="indefinite"/>
     <animate attributeName="opacity" values=".35;0;.35" dur="4.5s" repeatCount="indefinite"/>
   </circle>
@@ -182,7 +184,7 @@
 
 <!-- ── RING (FRONT HALF) ───────────────────────────────── -->
 <g clip-path="url(#frontClip)">
-  <g transform="rotate(-16 600 316)" filter="url(#glow)">
+  <g transform="rotate(-16 600 316)">
     <ellipse cx="600" cy="316" rx="304" ry="80" fill="none" stroke="url(#ring)" stroke-width="12" opacity=".95"/>
     <ellipse cx="600" cy="316" rx="304" ry="80" fill="none" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="2 16" opacity=".5">
       <animate attributeName="stroke-dashoffset" from="0" to="-180" dur="6s" repeatCount="indefinite"/>
@@ -190,17 +192,17 @@
   </g>
 </g>
 
-<!-- ── ORBITERS ────────────────────────────────────────── -->
+<!-- ── ORBITERS (positioned statically for GitHub, animated elsewhere) ── -->
 <g transform="rotate(-16 600 316)">
-  <circle r="5.5" fill="#ff2d95" filter="url(#glow)">
+  <circle cx="930" cy="316" r="5.5" fill="#ff2d95">
     <animateMotion dur="12s" repeatCount="indefinite" path="M 270,316 a 330,86 0 1,0 660,0 a 330,86 0 1,0 -660,0"/>
   </circle>
 </g>
 <g transform="rotate(22 600 316)">
-  <g>
+  <g transform="translate(210,316)">
     <animateMotion dur="21s" repeatCount="indefinite" path="M 210,316 a 390,120 0 1,0 780,0 a 390,120 0 1,0 -780,0"/>
-    <circle r="13" fill="url(#moonG)" filter="url(#glow)"/>
-    <circle r="19" fill="none" stroke="#a855f7" stroke-width="1" opacity=".5">
+    <circle r="13" fill="url(#moonG)"/>
+    <circle r="19" fill="none" stroke="#a855f7" stroke-width="1" opacity=".3">
       <animate attributeName="r" values="15;24;15" dur="2.6s" repeatCount="indefinite"/>
       <animate attributeName="opacity" values=".6;0;.6" dur="2.6s" repeatCount="indefinite"/>
     </circle>
@@ -212,7 +214,7 @@
 
 <!-- ── HUD ─────────────────────────────────────────────── -->
 <g font-family="'JetBrains Mono','SF Mono',Consolas,monospace">
-  <rect x="0" y="0" width="1200" height="2" fill="#00d9ff" opacity=".08">
+  <rect x="0" y="300" width="1200" height="2" fill="#00d9ff" opacity=".08">
     <animate attributeName="y" values="6;592" dur="7s" repeatCount="indefinite"/>
     <animate attributeName="opacity" values="0;.16;0" dur="7s" repeatCount="indefinite"/>
   </rect>
@@ -233,35 +235,37 @@
   <g>
     <text x="46" y="410" font-size="9" letter-spacing="1.5" fill="#8892b0">COMMIT DENSITY</text>
     <rect x="46" y="418" width="140" height="4" rx="2" fill="#1b2447"/>
-    <rect x="46" y="418" width="140" height="4" rx="2" fill="#00d9ff"><animate attributeName="width" values="30;138;72;140;30" dur="9s" repeatCount="indefinite"/></rect>
+    <rect x="46" y="418" width="100" height="4" rx="2" fill="#00d9ff"><animate attributeName="width" values="30;138;72;140;30" dur="9s" repeatCount="indefinite"/></rect>
     <text x="46" y="446" font-size="9" letter-spacing="1.5" fill="#8892b0">STREAK FLUX</text>
     <rect x="46" y="454" width="140" height="4" rx="2" fill="#1b2447"/>
-    <rect x="46" y="454" width="140" height="4" rx="2" fill="#ff2d95"><animate attributeName="width" values="110;48;132;86;110" dur="11s" repeatCount="indefinite"/></rect>
+    <rect x="46" y="454" width="110" height="4" rx="2" fill="#ff2d95"><animate attributeName="width" values="110;48;132;86;110" dur="11s" repeatCount="indefinite"/></rect>
     <text x="46" y="482" font-size="9" letter-spacing="1.5" fill="#8892b0">ORBIT STABILITY</text>
     <rect x="46" y="490" width="140" height="4" rx="2" fill="#1b2447"/>
-    <rect x="46" y="490" width="140" height="4" rx="2" fill="#a855f7"><animate attributeName="width" values="126;140;118;134;126" dur="7s" repeatCount="indefinite"/></rect>
+    <rect x="46" y="490" width="130" height="4" rx="2" fill="#a855f7"><animate attributeName="width" values="126;140;118;134;126" dur="7s" repeatCount="indefinite"/></rect>
   </g>
 
   <!-- right radar scope -->
   <g transform="translate(1092 452)">
-    <circle r="46" fill="#060b1e" opacity=".7" stroke="#00d9ff" stroke-width="1" opacity=".35"/>
+    <circle r="46" fill="#060b1e" stroke="#00d9ff" stroke-width="1" opacity=".35"/>
     <circle r="31" fill="none" stroke="#00d9ff" stroke-width=".6" opacity=".22"/>
     <circle r="16" fill="none" stroke="#00d9ff" stroke-width=".6" opacity=".22"/>
     <line x1="-46" y1="0" x2="46" y2="0" stroke="#00d9ff" stroke-width=".6" opacity=".18"/>
     <line x1="0" y1="-46" x2="0" y2="46" stroke="#00d9ff" stroke-width=".6" opacity=".18"/>
-    <g><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
+    <g transform="rotate(45)">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
       <line x1="0" y1="0" x2="46" y2="0" stroke="#ff2d95" stroke-width="1.6" opacity=".9"/>
       <path d="M 0,0 L 46,0 A 46,46 0 0,0 33,-33 Z" fill="#ff2d95" opacity=".18"/>
     </g>
-    <circle cx="18" cy="-12" r="2.4" fill="#00d9ff"><animate attributeName="opacity" values="0;1;0" dur="4s" begin="-1s" repeatCount="indefinite"/></circle>
-    <circle cx="-24" cy="9" r="2" fill="#a855f7"><animate attributeName="opacity" values="0;1;0" dur="4s" begin="-2.7s" repeatCount="indefinite"/></circle>
+    <circle cx="18" cy="-12" r="2.4" fill="#00d9ff" opacity=".7"><animate attributeName="opacity" values="0;1;0" dur="4s" begin="-1s" repeatCount="indefinite"/></circle>
+    <circle cx="-24" cy="9" r="2" fill="#a855f7" opacity=".7"><animate attributeName="opacity" values="0;1;0" dur="4s" begin="-2.7s" repeatCount="indefinite"/></circle>
   </g>
 
   <!-- CTA pill -->
   <g transform="translate(600 512)">
-    <g><animateTransform attributeName="transform" type="scale" values="1;1.035;1" dur="2.8s" repeatCount="indefinite"/>
+    <g>
+      <animateTransform attributeName="transform" type="scale" values="1;1.035;1" dur="2.8s" repeatCount="indefinite"/>
       <rect x="-172" y="-18" width="344" height="36" rx="18" fill="#030611" opacity=".88" stroke="#00d9ff" stroke-width="1.4"/>
-      <rect x="-172" y="-18" width="344" height="36" rx="18" fill="none" stroke="#a855f7" stroke-width="1.4" opacity=".7">
+      <rect x="-172" y="-18" width="344" height="36" rx="18" fill="none" stroke="#a855f7" stroke-width="1.4" opacity=".5">
         <animate attributeName="opacity" values=".15;.9;.15" dur="2.8s" repeatCount="indefinite"/>
       </rect>
       <text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="2.6" fill="#ffffff">⬢ ENTER 360° ORBIT ↗</text>
